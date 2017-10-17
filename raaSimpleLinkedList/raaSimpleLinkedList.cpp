@@ -9,7 +9,7 @@ struct linkedListElement
 {
 	linkedListElement *m_pNext;
 	linkedListElement *m_pLast;
-	int *m_ipData;
+	int m_iData;
 };
 
 linkedListElement *g_pHead = 0;
@@ -28,21 +28,25 @@ linkedListElement* popHead();
 linkedListElement* popTail();
 linkedListElement* deleteElement(linkedListElement *pElement);
 
-int main(char* argv[])
+int main(char* args[])
 {
 	linkedListElement *pElement=0;
 
 	pElement=createNewElement(4);
 	pushHead(pElement);
+	printList();
 
 	pElement=createNewElement(2);
 	pushTail(pElement);
+	printList();
 
 	pElement=createNewElement(8);
 	pushHead(pElement);
+	printList();
 
 	pElement=createNewElement(5);
 	pushTail(pElement);
+	printList();
 
 	printList();
 
@@ -64,7 +68,8 @@ void printList()
 	for(linkedListElement *pElement=g_pHead;pElement;pElement=pElement->m_pNext)
 	{
 		printf("Element: %d\n", uiCount++);
-		printf("\tNode: %d\n", pElement->m_ipData);
+		printf("\tNode: %d\n", pElement);
+		printf("\tData: %d\n", pElement->m_iData);
 	}
 }
 
@@ -76,7 +81,7 @@ linkedListElement* createNewElement(int data)
 	pElement->m_pNext=0;
 
 	// initialise data
-	pElement->m_ipData = &data;
+	pElement->m_iData = data;
 
 	return pElement;
 }
@@ -130,7 +135,6 @@ void pushTail(linkedListElement *pElement)
 		}
 	}
 }
-
 
 linkedListElement* popHead()
 {
