@@ -64,7 +64,7 @@ void printList()
 	for(linkedListElement *pElement=g_pHead;pElement;pElement=pElement->m_pNext)
 	{
 		printf("Element: %d\n", uiCount++);
-		printf("\tNode\n");
+		printf("\tNode: %d\n", pElement->m_ipData);
 	}
 }
 
@@ -99,6 +99,12 @@ linkedListElement* deleteElement(linkedListElement *pElement)
 	return pE;
 }
 
+bool isInList(linkedListElement *pElement)
+{
+	return pElement == g_pHead ||
+		(pElement->m_pNext || pElement->m_pLast);
+}
+
 void pushHead(linkedListElement *pElement)
 {
 	if (pElement && !isInList(pElement)) {
@@ -110,12 +116,6 @@ void pushHead(linkedListElement *pElement)
 			g_pHead = g_pTail = pElement;
 		}
 	}
-}
-
-bool isInList(linkedListElement *pElement)
-{
-	return pElement == g_pHead ||
-		(pElement->m_pNext || pElement->m_pLast);
 }
 
 void pushTail(linkedListElement *pElement)
@@ -164,7 +164,7 @@ linkedListElement* popTail()
 			return pElement;
 		}
 		else {
-			g_pTail = g_pTail->m_pNext;
+			g_pTail = g_pTail->m_pLast;
 
 			g_pTail->m_pNext = pElement->m_pLast = 0;
 
